@@ -1,10 +1,10 @@
-package se331.lab.dao;
+package se331.lab.rest.service;
 
-import se331.lab.entity.Event;
+import se331.lab.rest.entity.Event;
 
 import java.util.List;
 
-public interface EventDao {
+public interface EventService {
     Integer getEventSize();
     List<Event> getEvents(Integer pageSize, Integer page);
     Event getEvent(Long id);

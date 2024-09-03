@@ -1,9 +1,9 @@
-package se331.lab.service;
+package se331.lab.rest.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import se331.lab.dao.OrganizerDao;
-import se331.lab.entity.Organizer;
+import se331.lab.rest.dao.OrganizerDao;
+import se331.lab.rest.entity.Organizer;
 
 import java.util.List;
 
