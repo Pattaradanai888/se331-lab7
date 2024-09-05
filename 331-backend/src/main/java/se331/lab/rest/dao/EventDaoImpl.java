@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import se331.lab.rest.entity.Event;
+import se331.lab.rest.repository.EventRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,12 @@ import java.util.List;
 @Repository
 @Profile("manual")
 public class EventDaoImpl implements EventDao {
+    private final EventRepository eventRepository;
     List<Event> eventList;
+
+    public EventDaoImpl(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @PostConstruct
     public void init() {
@@ -96,11 +102,20 @@ public class EventDaoImpl implements EventDao {
         pageSize = pageSize == null ? eventList.size() : pageSize;
         page = page == null ? 1 : page;
         int firstIndex = (page -1) * pageSize;
-        return new PageImpl<Event>(eventList.subList(firstIndex, firstIndex + pageSize), PageRequest.of(page,pageSize),eventList.size());
+        return new
+        PageImpl<Event>(eventList.subList(firstIndex, firstIndex + pageSize), PageRequest.of(page,
+                pageSize),eventList.size());
     }
 
     @Override
     public Event getEvent(Long id) {
         return eventList.stream().filter(event -> event.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    @Override
+    public Event save(Event event){
+        event.setId(eventList.get(eventList.size() - 1).getId());
+        eventList.add(event);
+        return event;
     }
 }

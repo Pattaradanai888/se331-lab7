@@ -8,28 +8,30 @@ import org.springframework.stereotype.Repository;
 import se331.lab.rest.entity.Event;
 import se331.lab.rest.repository.EventRepository;
 
-import java.util.List;
-
 @Repository
 @RequiredArgsConstructor
 @Profile("db")
 public class EventDaoDbImpl implements EventDao {
-    final EventRepository eventReposity;
+    final EventRepository eventRepository;
 
     @Override
     public Integer getEventSize() {
-        return Math.toIntExact(eventReposity.count());
+        return Math.toIntExact(eventRepository.count());
     }
 
     @Override
     public Page<Event> getEvents(Integer pageSize, Integer page) {
-        return eventReposity.findAll(PageRequest.of(page - 1, pageSize));
+        return eventRepository.findAll(PageRequest.of(page - 1, pageSize));
     }
 
     @Override
     public Event getEvent(Long id) {
-        return eventReposity.findById(id).orElse(null);
+        return eventRepository.findById(id).orElse(null);
+    }
 
+    @Override
+    public Event save(Event event) {
+        return eventRepository.save(event);
     }
 }
 
