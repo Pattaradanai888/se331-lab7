@@ -10,10 +10,10 @@ import se331.lab.rest.repository.EventRepository;
 @Component
 @RequiredArgsConstructor
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
-    final EventRepository eventReposity;
+    final EventRepository eventRepository;
     @Override
     public void onApplicationEvent (ApplicationReadyEvent applicationReadyEvent) {
-        eventReposity.save(Event.builder()
+        eventRepository.save(Event.builder()
                 .category("Academic")
                 .title("Midterm Exam")
                 .description("A time for taking the exam")
@@ -22,7 +22,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .time("3.00-4.00 pm.")
                 .petAllowed(false)
                 .organizer("CAMT").build());
-        eventReposity.save(Event.builder()
+        eventRepository.save(Event.builder()
                 .category("Academic")
                 .title("Commencement Exam")
                 .description("A time for celebration")
@@ -31,7 +31,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .time("8.00 am.- 4.00 pm.")
                 .petAllowed(false)
                 .organizer("CMU").build());
-        eventReposity.save(Event.builder()
+        eventRepository.save(Event.builder()
                 .category("Cultural")
                 .title("Loy Krathong")
                 .description("A time for Krathong")
@@ -40,7 +40,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .time("8.00 - 10.00 pm.")
                 .petAllowed(false)
                 .organizer("Chiang Mai").build());
-        eventReposity.save(Event.builder()
+        eventRepository.save(Event.builder()
                 .category("Cultural")
                 .title("Songkran")
                 .description("Let's Play Water")

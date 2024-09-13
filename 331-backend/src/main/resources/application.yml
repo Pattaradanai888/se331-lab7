@@ -1,16 +1,18 @@
 spring:
+  application:
+    name: 331-backend
   profiles:
     active:
       - db
+      - db-or
   datasource:
     url: jdbc:mysql://localhost:3307/selabdb?createDatabaseIfNotExist=true&autoReconnect=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&useUnicode=true
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: password
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: create
-  hibernate:
-  properties:
-    hibernate:
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
