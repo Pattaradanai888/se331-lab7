@@ -22,8 +22,8 @@ public class EventController {
     }
 
     @GetMapping("events")
-    public ResponseEntity<?> getEventLists(@RequestParam(value = "_limit",
-            required = false) Integer perPage
+    public ResponseEntity<?> getEventLists(
+            @RequestParam(value = "_limit", required = false) Integer perPage
             , @RequestParam(value = "_page", required = false)Integer page) {
         Page<Event> pageOutput = eventService.getEvents(perPage, page);
         HttpHeaders responseHeaders = new HttpHeaders();
