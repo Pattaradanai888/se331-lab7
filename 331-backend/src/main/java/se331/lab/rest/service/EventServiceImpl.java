@@ -14,7 +14,6 @@ import se331.lab.rest.entity.Organizer;
 @Service
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
-    @Autowired
     final EventDao eventDao;
 
     final OrganizerDao organizerDao;

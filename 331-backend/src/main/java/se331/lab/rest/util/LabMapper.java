@@ -11,9 +11,19 @@ public interface LabMapper {
     LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
     EventDTO getEventDto(Event event);
     List<EventDTO> getEventDto(List<Event> events);
+
     OrganizerDTO getOrganizerDto(Organizer organizer);
     List<OrganizerDTO> getOrganizerDto(List<Organizer> organizers);
+
+    EventOrganizerDTO getEventOrganizerDto(Organizer organizer);
+    List<EventOrganizerDTO> getEventOrganizerDto(List<Organizer> organizers);
+
+    EventParticipantDTO getEventParticipantDto(Participant participant);
+    List<EventParticipantDTO> getEventParticipantDto(List<Participant> participants);
+
     ParticipantDTO getParticipantDto(Participant participant);
     List<ParticipantDTO> getParticipantDto(List<Participant> participants);
+
+
 
 }
