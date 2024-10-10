@@ -53,22 +53,40 @@ public class CloudStorageHelper {
                                 .setAcl(new
                                         ArrayList<>(Arrays.asList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
                                 .setContentType(filePart.getContentType())
-                                .build());
-                        os.toByteArray();
+                                .build(),
+                        os.toByteArray());
                         return blobInfo.getMediaLink();
     }
 
-    public String getImageUrl (MultipartFile filePart , final String bucketName) throws IOException, ServletException {
-        final String fileName = filePart.getOriginalFilename();
+    public String getImageUrl (MultipartFile file , final String bucketName) throws IOException, ServletException {
+        final String fileName = file.getOriginalFilename();
         if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
             final String extension =
                     fileName.substring(fileName.lastIndexOf(".") + 1);
             String[] allowedExt = {"jpg", "jpeg", "png", "gif"};
             for (String s : allowedExt) {
                 if (extension.equals(s)) {
-                    return this.uploadFile(filePart, bucketName);
+                    return this.uploadFile(file, bucketName);
                 }
             }
+            throw new ServletException("file must be an image");
+        }
+        return null;
+    }
+
+    public StorageFileDto getStorageFileDto (MultipartFile file, final String bucketName) throws IOException, ServletException {
+        final String fileName = file.getOriginalFilename();
+        if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
+         final String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+         String[] allowedExt = {"jpg", "jpeg", "png", "gif"};
+         for (String s : allowedExt) {
+             if (extension.equals(s)) {
+                 String urlName = this.uploadFile(file, bucketName);
+                 return StorageFileDto.builder()
+                         .name(urlName)
+                         .build();
+                 }
+             }
             throw new ServletException("file must be an image");
         }
         return null;
