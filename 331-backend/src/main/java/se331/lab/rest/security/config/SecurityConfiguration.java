@@ -1,4 +1,4 @@
-package se331.lab.security.config;
+package se331.lab.rest.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +30,8 @@ public class SecurityConfiguration {
     http
             .csrf((crsf) -> crsf.disable())
             .authorizeHttpRequests((authorize) -> {
-
-              authorize.anyRequest().authenticated();
+                authorize.requestMatchers("/api/v1/auth/**").permitAll()
+                    .anyRequest().authenticated();
             })
 
             .sessionManagement((session) ->{
