@@ -18,6 +18,7 @@ import se331.lab.rest.security.token.TokenType;
 import se331.lab.rest.security.user.Role;
 import se331.lab.rest.security.user.User;
 import se331.lab.rest.security.user.UserRepository;
+import se331.lab.rest.util.LabMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,8 +37,10 @@ public class AuthenticationService {
             .firstname(request.getFirstname())
             .lastname(request.getLastname())
             .email(request.getEmail())
+            .username(request.getUsername())
             .password(passwordEncoder.encode(request.getPassword()))
             .roles(List.of(Role.ROLE_USER))
+            .enabled(true)
             .build();
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
@@ -66,6 +69,7 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
+            .user(LabMapper.INSTANCE.getOrganizerAuthDTO(user.getOrganizer()))
             .build();
   }
 
